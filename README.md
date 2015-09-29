@@ -1,2 +1,2 @@
 # gentoo-ovelay
-Some hacky ebuilds
+Some hacky ebuilds, abandone all hope ye who enter here
