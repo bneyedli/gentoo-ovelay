@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name><![CDATA[godin]]></name>
+    <description lang="en"><![CDATA[Bryan's hacky Gentoo Overlay]]></description>
+    <homepage>https://github.com/bneyedli/gentoo-overlay</homepage>
+    <owner type="person">
+      <email>bryan@trinimbus.com</email>
+      <name><![CDATA[Bryan Neyedli]]></name>
+    </owner>
+    <source type="git">git://github.com/bneyedli/gentoo-overlay.git</source>
+    <source type="git">https://github.com/bneyedli/gentoo-overlay.git</source>
+    <feed>https://github.com/bneyedli/gentoo-overlay/commits/master.atom</feed>
+  </repo>
+</repositories>
