@@ -2,7 +2,7 @@
 <!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
 <repositories xmlns="" version="1.0">
   <repo quality="experimental" status="unofficial">
-    <name><![CDATA[godin]]></name>
+    <name><![CDATA[bneyedli]]></name>
     <description lang="en"><![CDATA[Bryan's hacky Gentoo Overlay]]></description>
     <homepage>https://github.com/bneyedli/gentoo-overlay</homepage>
     <owner type="person">
