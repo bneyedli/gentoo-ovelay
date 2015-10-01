@@ -25,7 +25,7 @@ pkg_setup() {
 src_unpack() {
     unpack ${A}
     cd "${S}"
-	rm nexus-${PV}-01/bin/jsw/solaris* \
+	rm  -rf nexus-${PV}-01/bin/jsw/solaris* \
 	   nexus-${PV}-01/bin/jsw/windows* \
 	   nexus-${PV}-01/bin/jsw/macosx* \
 	   nexus-${PV}-01/bin/jsw/linux-ppc*
