@@ -29,6 +29,11 @@ src_unpack() {
 	   nexus-${PV}-01/bin/jsw/windows* \
 	   nexus-${PV}-01/bin/jsw/macosx* \
 	   nexus-${PV}-01/bin/jsw/linux-ppc*
+   rm nexus-${PV}-01/bin/jsw/lib/libwrapper-solaris* \
+      nexus-${PV}-01/bin/jsw/lib/libwrapper-windows* \
+      nexus-${PV}-01/bin/jsw/lib/wrapper-windows* \
+	  nexus-${PV}-01/bin/jsw/lib/libwrapper-macosx* \
+	  nexus-${PV}-01/bin/jsw/lib/libwrapper-linux-ppc*
 }
 
 src_install() {
