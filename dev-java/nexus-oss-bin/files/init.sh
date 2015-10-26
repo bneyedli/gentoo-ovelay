@@ -16,12 +16,12 @@ start() {
     checkconfig || return 1
 
     ebegin "Starting ${SVCNAME}"
-    su $RUN_AS -c "/opt/nexus/nexus-oss-webapp/bin/jsw/linux-x86-64/wrapper ${CONF}"
+    su $RUN_AS -c "/opt/nexus/nexus-oss-webapp/bin/jsw/linux-x86-64/wrapper ${CONF} &> /dev/null"
     eend $?
 }
 
 stop() {
     ebegin "Stopping ${SVCNAME}"
-    su $RUN_AS -c "/opt/nexus/nexus-oss-webapp/bin/jsw/linux-x86-64/wrapper stop"
+    killall $RUN_AS 
     eend $?
 }

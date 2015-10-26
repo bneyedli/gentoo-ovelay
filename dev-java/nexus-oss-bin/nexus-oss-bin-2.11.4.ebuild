@@ -25,15 +25,27 @@ pkg_setup() {
 src_unpack() {
     unpack ${A}
     cd "${S}"
-	rm  -rf nexus-${PV}-01/bin/jsw/solaris* \
-	   nexus-${PV}-01/bin/jsw/windows* \
-	   nexus-${PV}-01/bin/jsw/macosx* \
-	   nexus-${PV}-01/bin/jsw/linux-ppc*
-   rm nexus-${PV}-01/bin/jsw/lib/libwrapper-solaris* \
-      nexus-${PV}-01/bin/jsw/lib/libwrapper-windows* \
-      nexus-${PV}-01/bin/jsw/lib/wrapper-windows* \
-	  nexus-${PV}-01/bin/jsw/lib/libwrapper-macosx* \
-	  nexus-${PV}-01/bin/jsw/lib/libwrapper-linux-ppc*
+    rm  -rf nexus-${PV}-01/bin/jsw/solaris* \
+       nexus-${PV}-01/bin/jsw/windows* \
+       nexus-${PV}-01/bin/jsw/macosx* \
+       nexus-${PV}-01/bin/jsw/linux-ppc*
+    rm nexus-${PV}-01/bin/jsw/lib/libwrapper-solaris* \
+       nexus-${PV}-01/bin/nexus.bat \
+       nexus-${PV}-01/bin/jsw/lib/wrapper-windows* \
+       nexus-${PV}-01/bin/jsw/lib/libwrapper-macosx* \
+       nexus-${PV}-01/bin/jsw/lib/libwrapper-linux-ppc*
+    if [[ ${KEYWORDS} =~ amd64 ]] && [[ ${KEYWORDS} =~ x86 ]]
+	then
+		#do nothing
+	elif [[ ${KEYWORDS} =~ amd64 ]]
+	then
+		rm /opt/nexus/nexus-oss-webapp/bin/jsw/lib/libwrapper-linux-x86-32.so 
+		rm -rf /opt/nexus/nexus-oss-webapp/bin/jsw/linux-x86-32/
+	elif [[ ${KEYWORDS} =~ x86 ]]
+	then
+		rm /opt/nexus/nexus-oss-webapp/bin/jsw/lib/libwrapper-linux-x86-64.so 
+		rm -rf /opt/nexus/nexus-oss-webapp/bin/jsw/linux-x86-64/
+	fi
 }
 
 src_install() {
