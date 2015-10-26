@@ -37,6 +37,7 @@ src_unpack() {
     if [[ ${KEYWORDS} =~ amd64 ]] && [[ ${KEYWORDS} =~ x86 ]]
 	then
 		#do nothing
+		MULTILIB=1
 	elif [[ ${KEYWORDS} =~ amd64 ]]
 	then
 		rm /opt/nexus/nexus-oss-webapp/bin/jsw/lib/libwrapper-linux-x86-32.so 
