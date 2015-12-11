@@ -30,8 +30,12 @@ src_prepare() {
     rm  buildAgent/launcher/lib/libwrapper-solaris-x86-32.so \
         buildAgent/launcher/lib/libwrapper-solaris-sparc-32.so \
         buildAgent/launcher/lib/libwrapper-solaris-sparc-64.so \
+        buildAgent/launcher/bin/TeamCityAgentService-linux-x86-32 \
+		buildAgent/launcher/lib/libwrapper-linux-x86-32.so \
         buildAgent/launcher/bin/TeamCityAgentService-solaris-sparc-64 \
         buildAgent/launcher/bin/TeamCityAgentService-solaris-sparc-32 \
+        buildAgent/launcher/bin/TeamCityAgentService-linux-ppc-64 \
+        buildAgent/launcher/lib/libwrapper-linux-ppc-64.so \
         buildAgent/launcher/bin/TeamCityAgentService-solaris-x86-32
 }
 
