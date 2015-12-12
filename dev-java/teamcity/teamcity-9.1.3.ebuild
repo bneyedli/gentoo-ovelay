@@ -15,6 +15,8 @@ RDEPEND=">=virtual/jdk-1.5"
 
 S="${WORKDIR}/TeamCity"
 INSTALL_DIR="/opt/teamcity"
+RUN_DIR='/var/run/teamcity'
+LOG_DIR='/var/log/teamcity'
 
 QA_PRESTRIPPED="${INSTALL_DIR}/webapps/ROOT/WEB-INF/lib/libnet_sf_colorer.so"
 QA_TEXTRELS="*"
@@ -37,29 +39,23 @@ src_prepare() {
         buildAgent/launcher/bin/TeamCityAgentService-linux-ppc-64 \
         buildAgent/launcher/lib/libwrapper-linux-ppc-64.so \
         buildAgent/launcher/bin/TeamCityAgentService-solaris-x86-32
-	dodir /var/run/teamcity /var/log/teamcity/catalina
+	dodir ${RUN_DIR} ${LOG_DIR}
+	fowners -R teamcity:teamcity ${RUN_DIR} ${LOG_DIR}
 }
 
 src_install() {
     insinto ${INSTALL_DIR}
 
-    doins -r TeamCity-readme.txt Tomcat-running.txt bin buildAgent conf devPackage lib licenses temp webapps
+    doins -r Tomcat-running.txt bin buildAgent conf devPackage lib licenses temp webapps
+	dodoc TeamCity-readme.txt Tomcat-running.txt
 
     newinitd "${FILESDIR}/server.sh" teamcity-server
     newinitd "${FILESDIR}/agent.sh" teamcity-agent
     newconfd "${FILESDIR}/conf" teamcity
 
-    fowners -R teamcity:teamcity ${INSTALL_DIR}
-    fowners -R teamcity:teamcity /var/run/teamcity
-    fowners -R teamcity:teamcity /var/log/teamcity
+    fowners -R teamcity:teamcity "${INSTALL_DIR}"
 
-    for i in bin/*.sh ; do
-        fperms 755 ${INSTALL_DIR}/${i}
-    done
-
-    for i in buildAgent/bin/*.sh ; do
-        fperms 755 ${INSTALL_DIR}/${i}
-    done
+	find ${INSTALL_DIR} -name "*.sh" -exec fperms 755 {} \;
 
     # Protect teamcity conf on upgrade
     echo "CONFIG_PROTECT=\"${INSTALL_DIR}/conf ${INSTALL_DIR}/buildAgent/conf\"" > "${T}/25teamcity" || die
