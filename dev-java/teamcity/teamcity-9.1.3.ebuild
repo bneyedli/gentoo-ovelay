@@ -5,7 +5,7 @@ inherit user
 DESCRIPTION="Extensible continuous integration server"
 HOMEPAGE="http://www.jetbrains.com/teamcity/"
 LICENSE="MIT"
-SRC_URI="http://download.jetbrains.com/teamcity/TeamCity-${PV}.tar.gz"
+SRC_URI="http://download-cf.jetbrains.com/teamcity/TeamCity-${PV}.tar.gz"
 RESTRICT="mirror"
 SLOT="0"
 KEYWORDS="amd64"
@@ -37,12 +37,7 @@ src_prepare() {
         buildAgent/launcher/bin/TeamCityAgentService-linux-ppc-64 \
         buildAgent/launcher/lib/libwrapper-linux-ppc-64.so \
         buildAgent/launcher/bin/TeamCityAgentService-solaris-x86-32
-	if [[ ! -d /var/log/teamcity/catalina ]]; then
-	  mkdir -p /var/log/teamcity/catalina
-	fi
-	if [[ ! -d /var/run/teamcity ]]; then
-		mkdir /var/run/teamcity
-	fi
+	dodir /var/run/teamcity /var/log/teamcity/catalina
 }
 
 src_install() {
@@ -54,7 +49,9 @@ src_install() {
     newinitd "${FILESDIR}/agent.sh" teamcity-agent
     newconfd "${FILESDIR}/conf" teamcity
 
-    fowners -R teamcity:teamcity ${INSTALL_DIR} /var/run/teamcity /var/log/teamcity
+    fowners -R teamcity:teamcity ${INSTALL_DIR}
+    fowners -R teamcity:teamcity /var/run/teamcity
+    fowners -R teamcity:teamcity /var/log/teamcity
 
     for i in bin/*.sh ; do
         fperms 755 ${INSTALL_DIR}/${i}
