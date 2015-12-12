@@ -5,11 +5,10 @@ inherit user
 DESCRIPTION="Extensible continuous integration server"
 HOMEPAGE="http://www.jetbrains.com/teamcity/"
 LICENSE="MIT"
-# We are using rpm package here, because we want file with version.
 SRC_URI="http://download.jetbrains.com/teamcity/TeamCity-${PV}.tar.gz"
 RESTRICT="mirror"
 SLOT="0"
-KEYWORDS="x86 amd64"
+KEYWORDS="amd64"
 IUSE=""
 
 RDEPEND=">=virtual/jdk-1.5"
@@ -31,9 +30,19 @@ src_prepare() {
     rm  buildAgent/launcher/lib/libwrapper-solaris-x86-32.so \
         buildAgent/launcher/lib/libwrapper-solaris-sparc-32.so \
         buildAgent/launcher/lib/libwrapper-solaris-sparc-64.so \
+        buildAgent/launcher/bin/TeamCityAgentService-linux-x86-32 \
+		buildAgent/launcher/lib/libwrapper-linux-x86-32.so \
         buildAgent/launcher/bin/TeamCityAgentService-solaris-sparc-64 \
         buildAgent/launcher/bin/TeamCityAgentService-solaris-sparc-32 \
+        buildAgent/launcher/bin/TeamCityAgentService-linux-ppc-64 \
+        buildAgent/launcher/lib/libwrapper-linux-ppc-64.so \
         buildAgent/launcher/bin/TeamCityAgentService-solaris-x86-32
+	if [[ ! -d /var/log/teamcity/catalina ]]; then
+	  mkdir -p /var/log/teamcity/catalina
+	fi
+	if [[ ! -d /var/run/teamcity ]]; then
+		mkdir /var/run/teamcity
+	fi
 }
 
 src_install() {
@@ -41,10 +50,11 @@ src_install() {
 
     doins -r TeamCity-readme.txt Tomcat-running.txt bin buildAgent conf devPackage lib licenses temp webapps
 
-    newinitd "${FILESDIR}/init.sh" teamcity
+    newinitd "${FILESDIR}/server.sh" teamcity-server
+    newinitd "${FILESDIR}/agent.sh" teamcity-agent
     newconfd "${FILESDIR}/conf" teamcity
 
-    fowners -R teamcity:teamcity ${INSTALL_DIR}
+    fowners -R teamcity:teamcity ${INSTALL_DIR} /var/run/teamcity /var/log/teamcity
 
     for i in bin/*.sh ; do
         fperms 755 ${INSTALL_DIR}/${i}

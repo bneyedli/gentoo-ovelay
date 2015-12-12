@@ -16,7 +16,7 @@ start() {
     ebegin "Starting ${SVCNAME}"
 
     . /etc/conf.d/teamcity
-    su $RUN_AS -c "cd /opt/teamcity/bin/ && /bin/bash runAll.sh start &> /dev/null"
+    su $RUN_AS -c "cd ${TEAMCITY_AGENT_PATH}/bin && /bin/sh ./agent.sh start &> /dev/null"
     eend $?
 }
 
@@ -24,6 +24,6 @@ stop() {
     ebegin "Stopping ${SVCNAME}"
 
     . /etc/conf.d/teamcity
-    su $RUN_AS -c "cd /opt/teamcity/bin/ && /bin/bash runAll.sh stop &> /dev/null"
+    su $RUN_AS -c "cd ${TEAMCITY_AGENT_PATH}/bin && /bin/sh ./agent.sh stop &> /dev/null"
     eend $?
 }

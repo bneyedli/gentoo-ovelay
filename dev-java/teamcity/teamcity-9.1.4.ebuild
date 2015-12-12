@@ -8,7 +8,7 @@ LICENSE="MIT"
 SRC_URI="http://download-cf.jetbrains.com/teamcity/TeamCity-${PV}.tar.gz"
 RESTRICT="mirror"
 SLOT="0"
-KEYWORDS="x86 amd64"
+KEYWORDS="amd64"
 IUSE=""
 
 RDEPEND=">=virtual/jdk-1.5"
@@ -37,6 +37,12 @@ src_prepare() {
         buildAgent/launcher/bin/TeamCityAgentService-linux-ppc-64 \
         buildAgent/launcher/lib/libwrapper-linux-ppc-64.so \
         buildAgent/launcher/bin/TeamCityAgentService-solaris-x86-32
+	if [[ ! -d /var/log/teamcity/catalina ]]; then
+	  mkdir -p /var/log/teamcity/catalina
+	fi
+	if [[ ! -d /var/run/teamcity ]]; then
+		mkdir /var/run/teamcity
+	fi
 }
 
 src_install() {
@@ -44,10 +50,11 @@ src_install() {
 
     doins -r TeamCity-readme.txt Tomcat-running.txt bin buildAgent conf devPackage lib licenses temp webapps
 
-    newinitd "${FILESDIR}/init.sh" teamcity
+    newinitd "${FILESDIR}/server.sh" teamcity-server
+    newinitd "${FILESDIR}/agent.sh" teamcity-agent
     newconfd "${FILESDIR}/conf" teamcity
 
-    fowners -R teamcity:teamcity ${INSTALL_DIR}
+    fowners -R teamcity:teamcity ${INSTALL_DIR} /var/run/teamcity /var/log/teamcity
 
     for i in bin/*.sh ; do
         fperms 755 ${INSTALL_DIR}/${i}
