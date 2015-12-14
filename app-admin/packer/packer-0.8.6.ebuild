@@ -16,6 +16,6 @@ INSTALL_DIR="/usr/local/bin"
 
 src_install() {
     insinto ${INSTALL_DIR}
-
+	fperms 755 packer*
     doins -r packer*
 }
