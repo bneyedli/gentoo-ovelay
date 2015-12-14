@@ -12,7 +12,7 @@ IUSE=""
 #RDEPEND=">=virtual/jdk-1.5"
 
 S="${WORKDIR}"
-INSTALL_DIR="/usr/local/packer"
+INSTALL_DIR="/usr/local/bin"
 
 src_install() {
     insinto ${INSTALL_DIR}
