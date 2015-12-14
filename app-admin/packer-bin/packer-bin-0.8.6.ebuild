@@ -21,5 +21,5 @@ src_unpack() {
 src_install() {
   insinto ${INSTALL_DIR}
   doins -r packer*
-  fperms 755 packer*
+  fperms 755 ${INSTALL_DIR}/packer*
 }
