@@ -21,6 +21,7 @@ DEPEND="app-arch/unzip"
 RDEPEND="dev-lang/ruby:${ruby_slot}[ssl]
 	net-misc/rsync
 	sys-fs/multipath-tools
+	sys-apps/gptfdisk
 	net-misc/curl"
 
 src_prepare() {
