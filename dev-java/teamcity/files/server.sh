@@ -39,6 +39,7 @@ if [ "$TEAMCITY_PREPARE_SCRIPT" != "" ]; then
 fi
 
 export CATALINA_PID="$TEAMCITY_PID_FILE_PATH"
+export CATALINA_OUT="${TEAMCITY_LOG_PATH}/catalina/catalina.out"
 
 start() {
     checkconfig || return 1
